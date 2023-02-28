@@ -1,7 +1,8 @@
 const path = require('path');
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 const webpack = require('webpack');
 
@@ -31,6 +32,11 @@ module.exports = {
         }
     ]
   },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(),
+    ],
+  },
   entry: {
     // entry名はcssとjsで同名はNG
     'script': [ path.resolve(__dirname, 'src/js/index.js') ],
@@ -57,7 +63,7 @@ module.exports = {
       filename: `../css/[name].css`,
     }),
     // cssをentryしたときに生成される不要なjsを削除
-    new FixStyleOnlyEntriesPlugin(),
+    new RemoveEmptyScriptsPlugin(),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: "jquery"
