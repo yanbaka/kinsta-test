@@ -14,6 +14,7 @@ const themes = 'fl';
 
 module.exports = {
   mode: "development",
+  devtool: "source-map",
   module: {
     rules: [
         {
@@ -23,11 +24,31 @@ module.exports = {
                     loader: MiniCssExtractPlugin.loader
                 },
                 {
-                    loader: 'css-loader'
+                    loader: 'css-loader',
+                    options: {
+                      sourceMap: true,
+                      importLoaders: 2,
+                      // 0 => no loaders (default);
+                      // 1 => postcss-loader;
+                      // 2 => postcss-loader, sass-loader
+                    },
                 },
                 {
-                    loader: 'sass-loader'
-                }
+                  loader: "postcss-loader",
+                  options: {
+                    postcssOptions: {
+                      plugins: [
+                        ["autoprefixer", { grid: true }],
+                      ],
+                    },
+                  },
+                },
+                {
+                    loader: 'sass-loader',
+                    options: {
+                      sourceMap: true,
+                    },
+                },
             ]
         }
     ]
@@ -59,7 +80,7 @@ module.exports = {
       },
     }),
     new MiniCssExtractPlugin({
-      // 出力先はjsからの相対パスを指定。[name]にはentryのkeyが入る　
+      // 出力先はjsからの相対パスを指定
       filename: `../css/[name].css`,
     }),
     // cssをentryしたときに生成される不要なjsを削除

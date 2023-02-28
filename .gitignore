@@ -1,1 +1,4 @@
 node_modules/
+
+*.map
+wp-content/themes/fl/images/**/*
