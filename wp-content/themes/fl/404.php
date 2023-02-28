@@ -1,3 +1,3 @@
 <?php get_header(); ?>
-<h1>hello</h1>
+404
 <?php get_footer(); ?>

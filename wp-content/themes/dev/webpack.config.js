@@ -3,6 +3,8 @@ const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 
+const webpack = require('webpack');
+
 const themes = 'fl';
 
 module.exports = {
@@ -26,13 +28,15 @@ module.exports = {
     ]
   },
   entry: {
-    'index': [ path.resolve(__dirname, 'src/js/index.js') ],
-    'index': [ path.resolve(__dirname, 'src/css/index.scss') ],
+    // entry名はcssとjsで同名はNG
+    'script': [ path.resolve(__dirname, 'src/js/index.js') ],
+    'style': [ path.resolve(__dirname, 'src/css/index.scss') ],
   },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, `../${themes}/js`),
     publicPath: '/',
+    clean: true,
   },
   plugins: [
     new BrowserSyncPlugin({
@@ -50,5 +54,9 @@ module.exports = {
     }),
     // cssをentryしたときに生成される不要なjsを削除
     new FixStyleOnlyEntriesPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: "jquery"
+    })
   ],
 };
