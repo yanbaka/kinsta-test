@@ -5,6 +5,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 const webpack = require('webpack');
+const TerserPlugin = require("terser-webpack-plugin");
 
 const CopyPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -60,6 +61,10 @@ module.exports = {
   optimization: {
     minimizer: [
       new CssMinimizerPlugin(),
+      new TerserPlugin({
+        // LICENSE.txt出力しない
+        extractComments: false,
+      }),
     ],
   },
   entry: {

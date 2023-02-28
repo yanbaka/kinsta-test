@@ -5,7 +5,7 @@ var __webpack_exports__ = {};
   !*** ./src/js/ts.ts ***!
   \**********************/
 
-console.log('aaaa');
+console.log('ts');
 
 /******/ })()
 ;
