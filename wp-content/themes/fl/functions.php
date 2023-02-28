@@ -7,7 +7,6 @@ function register_js() {
 }
 
 function add_javascript() {
-  wp_deregister_script('jquery');
   register_js();
 
   if(is_front_page()) {

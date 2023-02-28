@@ -5,6 +5,10 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 
 const webpack = require('webpack');
 
+const CopyPlugin = require('copy-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const ImageminMozjpeg = require('imagemin-mozjpeg');
+
 const themes = 'fl';
 
 module.exports = {
@@ -57,6 +61,32 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: "jquery"
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: `${path.resolve(__dirname, 'src')}/images`,
+          to: `${path.resolve(__dirname, `../${themes}`)}/images/[name][ext]`
+        }
+      ]
+    }),
+    new ImageminPlugin({
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      plugins: [
+        ImageminMozjpeg({
+          quality: 85,
+          progressive: true,
+        }),
+      ],
+      pngquant: {
+        quality: '70-85',
+      },
+      gifsicle: {
+        interlaced: false,
+        optimizationLevel: 10,
+        colors: 256,
+      },
+      svgo: {}
     })
   ],
 };
