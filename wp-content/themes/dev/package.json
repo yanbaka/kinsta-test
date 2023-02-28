@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/imagemin-svgo": "^10.0.2",
     "autoprefixer": "^10.4.13",
     "browser-sync": "^2.27.12",
     "browser-sync-webpack-plugin": "^2.3.0",
@@ -26,6 +27,8 @@
     "postcss": "^8.4.21",
     "postcss-loader": "^7.0.2",
     "sass-loader": "^13.2.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-remove-empty-scripts": "^1.0.1"

@@ -18,6 +18,10 @@ module.exports = {
   module: {
     rules: [
         {
+          test: /\.ts$/,
+          use: 'ts-loader',
+        },
+        {
             test: /\.(css|sass|scss)/,
             use: [
                 {
@@ -61,6 +65,7 @@ module.exports = {
   entry: {
     // entry名はcssとjsで同名はNG
     'script': [ path.resolve(__dirname, 'src/js/index.js') ],
+    'ts': [ path.resolve(__dirname, 'src/js/ts.ts') ],
     'style': [ path.resolve(__dirname, 'src/css/index.scss') ],
   },
   output: {
@@ -68,6 +73,11 @@ module.exports = {
     path: path.resolve(__dirname, `../${themes}/js`),
     publicPath: '/',
     clean: true,
+  },
+  resolve: {
+    extensions: [
+      '.ts', '.js',
+    ],
   },
   plugins: [
     new BrowserSyncPlugin({
